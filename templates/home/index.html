@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content%}
+
+<h1>
+    Hello, {{ session['username'] }}
+</h1>
+
+<a href="/create-employee">Создать нового сотрудника</a>
+
+
+
+<table style="border: 1px solid black; margin-top:50px;">
+    <thead>
+        <tr style="border: 1px solid black;">
+            <th style="border: 1px solid black;">#</th>
+            <th style="border: 1px solid black;">Firstname</th>
+            <th style="border: 1px solid black;">Lastname</th>
+            <th style="border: 1px solid black;">Department</th>
+            <th style="border: 1px solid black;">Salary</th>
+            <th style="border: 1px solid black;">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for employee in context['employees'] %}
+        <tr>
+            <td style="border: 1px solid black;">{{ employee[0] }}</td>
+            <td style="border: 1px solid black;">{{ employee[1] }}</td>
+            <td style="border: 1px solid black;">{{ employee[2] }}</td>
+            <td style="border: 1px solid black;">{{ employee[3] }}</td>
+            <td style="border: 1px solid black;">{{ employee[4] }}</td>
+            <td style="border: 1px solid black;">
+                <form action="/delete" method="POST">
+                    <input type="hidden" name="id" value="{{ employee[0] }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
